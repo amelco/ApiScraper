@@ -1,0 +1,50 @@
+﻿# Arquivo de configuração de ApiScrapper
+#
+# -= Regras =-
+# * Linhas que começam com '#' são considerados comentários.
+# * Caso esse arquivo exista, ele DEVE conter os parâmetros:
+#     1. enderecoBase
+#     2. rota
+#     3. bearer
+# * Os parâmetros devem obedecer a seguinte formatação <nome>: <valor1> [<valor2> ... <valorn>]
+# * Os parâmetros podem estar em qualquer ordem.
+# 
+#
+# -= 1. enderecoBase =-
+# URL completa do endereço base da API.
+#
+# 
+# -= 2. rota =-
+# Adicione quantas rotas quiser.
+# Toda rota deve iniciar com o <nome> rota.
+# Toda rota tem obrigatoriamente dois valores
+#   - <valor1> é o método HTTP a ser usado (somente GET e PATCH são suportados até agora).
+#   - <valor2> é o recurso da rota
+# Caso uma rota tenha um id, adicione '/{id}' ao final da rota.
+#   - Um <valor3> do tipo GUID pode ser adicionado quando se tem um id (fortemente recomendado).
+#   - Caso não especifique o id, o programa irá TENTAR achar um pra utilizar (pode e provavelmente vai dar errado).
+#
+# ATENÇÃO: Caso uma rota precise de um corpo (body, payload) JSON, basta adicionar o conteúdo JSON logo abaixo da rota,
+#          iniciando o JSON com uma linha ontendo '{' e finalizando com uma linha contendo '}'.
+#
+#
+# -= 3. bearer =-
+# É o bearer token necessário para a autenticação do usuário na requisição (futuramente será obtido automaticamente).
+#
+#
+# Abaixo, está um exemplo de configuração válida que utiliza todos os argumentos e todos seus valores.
+
+
+enderecoBase: https://aws-tst.localiza.dev/assistencia-core-netcore
+
+rota: GET /casos
+rota: GET /casos/{id} 1f4d7324-7df7-4b2c-66a4-08db3b54214a
+rota: PATCH /casos/editar/{id} 1f4d7324-7df7-4b2c-66a4-08db3b54214a
+
+rota: GET /local
+rota: GET /local/{id} 9c4f2f6c-fb20-407d-c627-08db3618bc71
+{
+  "etapa": "Acionamento"
+}
+
+bearer: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyJ9.eyJhdWQiOiIxOGIwYTA1MC05N2MyLTRhOWEtYjdlZi04YmMzMWFlZGRiMzciLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vMzczNzM2N2QtODdkMy00NmNhLWIwMGYtMjFiNTBjNDI4YjVlL3YyLjAiLCJpYXQiOjE2ODIwMjA4MjYsIm5iZiI6MTY4MjAyMDgyNiwiZXhwIjoxNjgyMDI0NzkwLCJhaW8iOiJBWFFBaS84VEFBQUFxZGpEbGJKbHEyTi9zS25xSG1SbVgzZkJEYjB5MGtXZ2JYdjB1VDhvOS9UelNoRkxWQ0hmb3RrVWNpd2U3U24zQnZ4VHF6dGRtU2ZIMmhkdXZ4ZEI5ZzV1dTJqemNYKzdhbjVURVlVQ1FpckVBa2hlR1JtV3JPbVFVaEtUQlFGcC9oeTBiS0p2Vjl4S2ZxVmR4RGlGeEE9PSIsImF6cCI6IjE4YjBhMDUwLTk3YzItNGE5YS1iN2VmLThiYzMxYWVkZGIzNyIsImF6cGFjciI6IjAiLCJuYW1lIjoiQW5kcmUgQmV6ZXJyYSIsIm9pZCI6IjM1YTM0MjVjLTgwM2EtNGVkMi05NWE2LWQ1NDFjMDhiM2Y5OCIsInByZWZlcnJlZF91c2VybmFtZSI6ImFuZHJlLmJlemVycmFAbG9jYWxpemEuY29tIiwicmgiOiIwLkFRWUFmVFkzTjlPSHlrYXdEeUcxREVLTFhsQ2dzQmpDbDVwS3QtLUx3eHJ0MnpjR0FKcy4iLCJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInNjcCI6IlVzZXIuUmVhZCIsInN1YiI6ImExV25YbWxaYk9SZ0dlbEloU0lkeFVQT2dNOWZUSktZXzhtQ1JZZlBPNzAiLCJ0aWQiOiIzNzM3MzY3ZC04N2QzLTQ2Y2EtYjAwZi0yMWI1MGM0MjhiNWUiLCJ1dGkiOiJRZEF5dnFkZkNrNnE2Z25CbGswMEFBIiwidmVyIjoiMi4wIn0.qncam5__mgXn41wFCNY69Bf0_TMCUUkkmhUzcdx60h2tFS_Gw5RxQNYynjt-RC61n4d3eBvAZb6elJUUUxeEZMb0qq8nnJ4f3dMaNV34A_aTwY5qfp42JMdcuf65dY6t-kik5-Td3j89YTZWjm8buz4G-AogacCUpm369XzauCGab8JMe-lrJ6_oTAks2BoWCQekaPH0TpQxVvRqF4cBteTPQeGrZXjS4aBgeF9kunGQD_eYQXb2-DSmpd-8QR2pRREo8HK9wO2JMg5rKDtQuWb4KG2W-rUhsqBQd5u4WNIh4T9UvCIhsDnUSSKSHqaPvy25DhpYcedGJVddwAM_gw 
