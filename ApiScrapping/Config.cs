@@ -141,18 +141,19 @@
             try
             {
                 metodo = GetMetodoHttp(value);
-                recurso = value.Split(" ")[1].Trim();
+                var valores = value.Split(" ");
+                recurso = valores[1].Trim();
                 _temRotas = true;
                 bool temId = recurso.Contains("id");
                 if (temId)
                 {
-                    var id = value.Split(" ")[2].Trim();
-                    return new Rota(recurso, metodo, temId, id);
+                    if (valores.Length > 2)
+                    {
+                        var id = valores[2].Trim();
+                        return new Rota(recurso, metodo, temId, id);
+                    }
                 }
-                else
-                {
-                    return new Rota(recurso, metodo, temId);
-                }
+                return new Rota(recurso, metodo, temId);
             }
             catch (Exception e)
             {

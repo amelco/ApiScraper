@@ -51,10 +51,7 @@ namespace ApiScrapping
                 if (rota.Id == Guid.Empty)
                 {
                     // Tenta pegar Id através da rota GET
-                    var rotaGet = "/" + rota.Nome.Split('/')[1];
-                    string result = _httpClient.GetStringAsync(EnderecoBase + rotaGet).Result.ToLower();
-                    var indexFirstId = result.IndexOf("id");
-                    rota.Id = Guid.Parse(result.Substring(indexFirstId + 5, 36));
+                    rota.Id = ObterPrimeiroId(rota);
                 }
                 var content = new StringContent(rota.Body ?? "", Encoding.UTF8, "application/json");
                 resposta = _httpClient.PatchAsync(_httpClient.BaseAddress + rotaSemId + rota.Id, content).Result;
@@ -84,5 +81,19 @@ namespace ApiScrapping
             Console.WriteLine("---------");
         }
 
+        private Guid ObterPrimeiroId(Rota rota)
+        {
+            try
+            {
+                var rotaGet = "/" + rota.Nome.Split('/')[1];
+                string result = _httpClient.GetStringAsync(EnderecoBase + rotaGet).Result.ToLower();
+                var indexFirstId = result.IndexOf("id");
+                return Guid.Parse(result.Substring(indexFirstId + 5, 36));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro tentando obter Id para a rota '{rota.Nome}'");
+            }
+        }
     }
 }
