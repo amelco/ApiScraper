@@ -26,6 +26,7 @@ namespace ApiScrapping
             Console.Write("   Rota: " + rota.Nome);
 
             HttpResponseMessage resposta;
+            string uri;
             if (rota.Tipo == MetodoHttp.GET)
             {
                 if (rota.TemId)
@@ -34,15 +35,18 @@ namespace ApiScrapping
                     if (rota.Id == Guid.Empty)
                     {
                         // Tenta pegar Id através da rota GET
-                        string result = _httpClient.GetStringAsync(EnderecoBase + rotaSemId).Result.ToLower();
+                        uri = TratarUri(rotaSemId);
+                        string result = _httpClient.GetStringAsync(uri).Result.ToLower();
                         var indexFirstId = result.IndexOf("id");
                         rota.Id = Guid.Parse(result.Substring(indexFirstId + 5, 36));
                     }
-                    resposta = _httpClient.GetAsync(_httpClient.BaseAddress + rotaSemId + rota.Id).Result;
+                    uri = TratarUri(rotaSemId + rota.Id);
+                    resposta = _httpClient.GetAsync(uri).Result;
                 }
                 else
                 {
-                    resposta = _httpClient.GetAsync(_httpClient.BaseAddress + rota.Nome).Result;
+                    uri = TratarUri(rota.Nome);
+                    resposta = _httpClient.GetAsync(uri).Result;
                 }
             }
             else if (rota.Tipo == MetodoHttp.PATCH)
@@ -54,7 +58,8 @@ namespace ApiScrapping
                     rota.Id = ObterPrimeiroId(rota);
                 }
                 var content = new StringContent(rota.Body ?? "", Encoding.UTF8, "application/json");
-                resposta = _httpClient.PatchAsync(_httpClient.BaseAddress + rotaSemId + rota.Id, content).Result;
+                uri = TratarUri(rotaSemId + rota.Id);
+                resposta = _httpClient.PatchAsync(uri, content).Result;
             }
             else
             {
@@ -79,6 +84,16 @@ namespace ApiScrapping
                 Console.WriteLine("   Body: " + rota.Body.ToString());
             }
             Console.WriteLine("---------");
+        }
+
+        private string TratarUri(string recurso)
+        {
+            string enderecoBase = _httpClient.BaseAddress.ToString();
+            if (_httpClient.BaseAddress!.ToString().Last() == '/')
+                enderecoBase = enderecoBase.Remove(enderecoBase.Length - 1);
+            if (recurso[0] != '/')
+                recurso = '/' + recurso;
+            return enderecoBase + recurso;
         }
 
         private Guid ObterPrimeiroId(Rota rota)
