@@ -107,7 +107,7 @@ namespace ApiScrapping
             }
             catch (Exception ex)
             {
-                throw new Exception($"Erro tentando obter Id para a rota '{rota.Nome}'");
+                throw new Exception($"Erro tentando obter Id para a rota: '{rota.Nome}'.");
             }
         }
     }

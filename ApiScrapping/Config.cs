@@ -2,8 +2,6 @@
 {
     public class Config
     {
-        private const string VerifiqueConfig = "Verifique arquivo de configuralção";
-
         public string? Bearer { get; set; }
         public string? EnderecoBase { get; set; }
         public List<Rota> Rotas { get; set; } = new List<Rota>();
@@ -14,7 +12,7 @@
 
         public Config(string[] args)
         {
-            if (File.Exists("config.txt"))
+            if (File.Exists(Constantes.NomeArquivoConfig))
                 LeArquivoConfig();
 
             if (!_temBearer)
@@ -29,7 +27,7 @@
 
         private void LeArquivoConfig()
         {
-            var arquivo = File.ReadLines("config.txt");
+            var arquivo = File.ReadLines(Constantes.NomeArquivoConfig);
 
             if (arquivo == null)
                 return;
@@ -88,7 +86,7 @@
             }
             catch (Exception e)
             {
-                throw new Exception($"Erro buscando corpo JSON. {VerifiqueConfig}\nMensagem: {e.Message}");
+                throw new Exception($"Erro buscando corpo JSON. {Constantes.Mensagens.VerifiqueArquivoConfig}\nMensagem: {e.Message}");
             }
         }
 
@@ -157,7 +155,7 @@
             }
             catch (Exception e)
             {
-                throw new Exception($"Erro lendo rotas. {VerifiqueConfig}.\nMensagem: {e.Message}");
+                throw new Exception($"Erro lendo rotas. {Constantes.Mensagens.VerifiqueArquivoConfig}\nMensagem: {e.Message}");
             }
         }
 
@@ -167,7 +165,7 @@
             if (tipo.ToLower() == "get") return MetodoHttp.GET;
             if (tipo.ToLower() == "post") return MetodoHttp.POST;
             if (tipo.ToLower() == "patch") return MetodoHttp.PATCH;
-            throw new Exception($"Erro obtendo método HTTP da rota. {VerifiqueConfig}");
+            throw new Exception($"Erro obtendo método HTTP da rota. {Constantes.Mensagens.VerifiqueArquivoConfig}");
         }
 
         private void ObtemBearer(string[] args)
