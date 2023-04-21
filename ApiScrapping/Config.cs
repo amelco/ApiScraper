@@ -48,37 +48,6 @@
             }
         }
 
-        private void AtribuiParametros(string linha)
-        {
-            var words = linha.Split(':');
-            var param = words[0].Trim();
-            var value = words[1].Trim();
-            for (int i = 2; i < words.Length; i++)
-            {
-                value += ":" + words[i].Trim();
-            }
-
-            if (param.Length > 1)
-            {
-                if (param.ToLower() == "enderecobase")
-                {
-                    EnderecoBase = value;
-                    _temEnderecoBase = true;
-                }
-                if (param.ToLower() == "rota")
-                {
-                    Rota r = GetRota(value);
-                    Rotas.Add(r);
-
-                }
-                if (param.ToLower() == "bearer")
-                {
-                    Bearer = value;
-                    _temBearer = true;
-                }
-            }
-        }
-
         private bool VerificaJsonBody(List<string> arq, ref int l)
         {
             try
@@ -120,6 +89,37 @@
             catch (Exception e)
             {
                 throw new Exception($"Erro buscando corpo JSON. {VerifiqueConfig}\nMensagem: {e.Message}");
+            }
+        }
+
+        private void AtribuiParametros(string linha)
+        {
+            var words = linha.Split(':');
+            var param = words[0].Trim();
+            var value = words[1].Trim();
+            for (int i = 2; i < words.Length; i++)
+            {
+                value += ":" + words[i].Trim();
+            }
+
+            if (param.Length > 1)
+            {
+                if (param.ToLower() == "enderecobase")
+                {
+                    EnderecoBase = value;
+                    _temEnderecoBase = true;
+                }
+                if (param.ToLower() == "rota")
+                {
+                    Rota r = GetRota(value);
+                    Rotas.Add(r);
+
+                }
+                if (param.ToLower() == "bearer")
+                {
+                    Bearer = value;
+                    _temBearer = true;
+                }
             }
         }
 
