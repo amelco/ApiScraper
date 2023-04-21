@@ -16,7 +16,7 @@ foreach (var rota in config.Rotas)
     }
     catch (Exception e)
     {
-        Console.WriteLine($"\nErro:\n{e.Message}\n ### Verifique os parâmetros no arquivo de configuração 'config.txt'.");
+        Console.WriteLine($"\n=> Erro:\n   {e.Message}\n   {e.InnerException?.Message ?? ""}\n=> ### Verifique os parâmetros no arquivo de configuração 'config.txt'.");
     }
 }
 Console.WriteLine("\nVerificação concluída.");
