@@ -1,7 +1,7 @@
 ﻿using ApiScrapping;
 
-Console.Write("\t-== Api Scrapper ==-");
-Console.WriteLine("\t\t[ Andre Herman (amelco.herman@gmail.com) ]");
+Console.WriteLine("\t-== Api Scrapper ==-");
+Console.WriteLine("\t[ Andre Herman (amelco.herman@gmail.com) ]");
 Console.WriteLine($"\tLeia o arquivo de configuração: {Constantes.NomeArquivoConfig}\n\n");
 
 var config = new Config(args);
@@ -21,9 +21,14 @@ foreach (var rota in config.Rotas)
     }
 }
 
-Console.WriteLine("\n   Rotas que apresentaram erros\n");
-foreach (var r in scrapper.RotasComErro)
+var numErros = scrapper.RotasComErro.Count;
+if (numErros > 0)
 {
-    Console.WriteLine("   * " + r.ToString());
+    Console.WriteLine($"\n   Rotas que apresentaram erros ({numErros})\n");
+    foreach (var r in scrapper.RotasComErro)
+    {
+        Console.WriteLine("   * " + r.ToString());
+    }
 }
+
 Console.WriteLine("\n   # Verificação concluída.");

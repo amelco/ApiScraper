@@ -78,7 +78,7 @@ namespace ApiScrapping
                 Console.Write("   ...OK!");
             }
 
-            Console.WriteLine("\n   URI: " + resposta.RequestMessage.Method.ToString() + " " + resposta?.RequestMessage?.RequestUri?.ToString() ?? "");
+            Console.WriteLine("\n   URI: " + resposta.RequestMessage?.Method.ToString() + " " + resposta?.RequestMessage?.RequestUri?.ToString() ?? "");
             if (rota.Body != null)
             {
                 Console.WriteLine("   Body: " + rota.Body.ToString());
