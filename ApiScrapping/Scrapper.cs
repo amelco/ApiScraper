@@ -83,7 +83,7 @@ namespace ApiScrapping
             {
                 Console.WriteLine("   Body: " + rota.Body.ToString());
             }
-            Console.WriteLine("---------");
+            Console.WriteLine("   ------");
         }
 
         private string TratarUri(string recurso)
